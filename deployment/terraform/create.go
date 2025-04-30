@@ -103,7 +103,7 @@ func ensureTerraformStateDir(dir string) error {
 
 func readGenValues(cfg deployment.Config) (*GeneratedValues, error) {
 	genValuesPath := path.Join(cfg.TerraformStateDir, genValuesFileName)
-	genValuesFile, err := os.Open(genValuesPath)
+	genValuesFile, err := os.OpenFile(genValuesPath, os.O_RDWR|os.O_CREATE, 0660)
 	if err != nil {
 		return nil, fmt.Errorf("unable to open file %q: %w", genValuesPath, err)
 	}
